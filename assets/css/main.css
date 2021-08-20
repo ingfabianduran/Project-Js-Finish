@@ -1,11 +1,37 @@
 body {
     font-family: 'Comic Neue', cursive;
+    background-color: #EAEAEA;
+}
+footer {
+    background-color: #FAF76B;
+    color: #2F4368;
+}
+footer img {
+    height: 40px;
+    width: 100px;
 }
 .container__board--card {
-    height: 140px;
+    background-color: #EAEAEA;
+    height: 230px;
     width: 140px;
 }
 .container__board--images {
     height: 100%;
     width: 100%;
+}
+.card--title {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+.button--main {
+    background-color: #2F4368;
+    color: white;
+}
+.button--secondary {
+    background-color: #87501F;
+    color: white;
+}
+button:hover {
+    color: white !important;
 }
