@@ -26,63 +26,70 @@
             <div
                 class="row min-vh-100 d-flex align-items-center">
                 <div
-                    class="col-9 my-2">
+                    class="col-12 my-3">
                     <div
-                        id="board">
-                    </div>
-                </div>
-                <div
-                    class="col-3 text-center">
-                    <div 
-                        class="card shadow h-100">
-                        <div
-                            class="card-body">
-                            <h3
-                                class="fw-bold card-title">
-                                Configuración
-                            </h3>
-                            <form>
-                                <div
-                                    class="mb-3">
-                                    <input 
-                                        type="text" 
-                                        id="namePlayer"
-                                        class="form-control"
-                                        placeholder="Nombre Del Jugador"
-                                        required>
-                                </div>
-                                <div
-                                    class="mb-4">
-                                    <select 
-                                        id="dificulty"
-                                        class="form-select"
-                                        required>
-                                        <option value="">Seleccioné una Dificultad</option>
-                                        <option value="12">Facil</option>
-                                        <option value="16">Medio</option>
-                                        <option value="20">Dificil</option>
-                                    </select>
-                                </div>
-                                <div
-                                    class="d-flex justify-content-around">
-                                    <button 
-                                        type="submit" 
-                                        class="btn button--main btn-lg">
-                                        Jugar
-                                    </button>
-                                    <button 
-                                        type="reset" 
-                                        class="btn button--secondary btn-lg">
-                                        Cancelar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                        id="board"
+                        class="d-none">
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="text-center p-2 text-reset fw-bold fixed-bottom">
+        <form id="formPlayer">
+            <div 
+                class="modal fade" 
+                id="formModal" 
+                tabindex="-1" 
+                aria-labelledby="formModalLabel" 
+                aria-hidden="true">
+                    <div 
+                        class="modal-dialog modal-dialog-centered">
+                        <div 
+                            class="modal-content">
+                            <div 
+                                class="modal-header">
+                                <h5 class="modal-title fw-bold">Registrar Jugador</h5>
+                            </div>
+                            <div 
+                                class="modal-body">
+                                <div
+                                    class="card-body">
+                                    <div
+                                        class="mb-3">
+                                        <input 
+                                            type="text" 
+                                            name="namePlayer"
+                                            class="form-control"
+                                            placeholder="Nombre Del Jugador"
+                                            required>
+                                    </div>
+                                    <div>
+                                        <select 
+                                            name="dificulty"
+                                            class="form-select"
+                                            required>
+                                            <option value="">Seleccioné una Dificultad</option>
+                                            <option value="12">Facil</option>
+                                            <option value="16">Medio</option>
+                                            <option value="20">Dificil</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div 
+                                class="modal-footer">
+                                <button
+                                    id="buttonSubmit"
+                                    type="submit" 
+                                    class="btn button--main btn-lg">
+                                    Jugar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <footer class="text-center p-2 text-reset fw-bold">
             <img 
                 src="./assets/images/Rick_and_Morty_Logo.png"            
                 alt="Logo Rick and Morty">
