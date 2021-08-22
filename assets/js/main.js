@@ -12,7 +12,8 @@ const submitForm = () => {
         const LEVEL = parseInt(FORM_DATA.get('dificulty'));
         BUTTON_SUBMIT.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
         localStorage.setItem('namePlayer', FORM_DATA.get('namePlayer'));
-        localStorage.setItem('numBusqueda', 0);
+        localStorage.setItem('selectCount', 0);
+        localStorage.setItem('score', 0);
         setTimeout(() => {
             MODAL_FORM.hide();
             initPlayer(LEVEL);
@@ -21,11 +22,12 @@ const submitForm = () => {
 }; 
 
 const initPlayer = async (dificulty) => {
-    const BOARD_PLAYER = document.getElementById('board');
     const LIST_BOARD = await getListBoard(dificulty);
-    BOARD_PLAYER.innerHTML = drawBoardPlayer(LIST_BOARD);
+    const BOARD_PLAYER = document.getElementById('board');
     BOARD_PLAYER.classList.remove('d-none');
-    localStorage.setItem('boardMachine', JSON.stringify(LIST_BOARD));
+    localStorage.setItem('board', JSON.stringify(LIST_BOARD));
+    drawBoardPlayer();
 };
 
 submitForm();
+eventClickButton();

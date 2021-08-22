@@ -1,24 +1,82 @@
-const drawBoardPlayer = (list) => {
-    let cards = `<div class="row">`;
-    for (let i = 0; i < list.length; i ++) {
-        cards += `<div class="col-3 d-flex justify-content-center mb-2">
-                    <div 
-                        class="card h-100 mb-2 container__board--card border-0">
-                        <img 
-                            src="${(list[i].isDiscover) ? list[i].image : './assets/images/question_icon.png'}"
-                            class="card-img-top"
-                            alt="Image question">
-                        <div 
-                            class="card-body p-0 d-flex flex-column justify-content-center ">
-                            ${(list[i].isDiscover) ? `<h5 class="card-title card--title">${list[i].value}</h5>` : '<h5 class="card-title card--title">???</h5>'}
-                            <button class="btn button--main btn-sm">
-                                <i class="bi bi-eye-fill"></i>
-                                Ver
-                            </button>
-                        </div>
-                    </div>
-                </div>`; 
+const eventClickButton = () => {
+    document.body.addEventListener('click', (e) => {
+        if (e.target.id == 'btnSeeElement') {
+            const ID_BUTTON = parseInt(e.target.getAttribute('data-id'));
+            let selectCount = localStorage.getItem('selectCount');
+            selectCount ++;
+            localStorage.setItem('selectCount', selectCount);
+            const LIST_BOARD_PLAYER = setImageBoard(ID_BUTTON, selectCount);
+            localStorage.setItem('board', JSON.stringify(LIST_BOARD_PLAYER));
+            drawBoardPlayer();
+        };
+    });
+};
+
+const saveElementObject = (selectCount, indice) => {
+    if (selectCount === 1) {
+        localStorage.setItem('index1', indice);
+    } else if (selectCount === 2) {
+        localStorage.setItem('index2', indice);
     }
-    cards += `</div>`;
-    return cards;
+};
+
+const setImageBoard = (indice, selectCount) => {
+    let boardPlayer = JSON.parse(localStorage.getItem('board'));
+    saveElementObject(selectCount, indice);
+    boardPlayer[indice].isDiscover = true;
+    if (selectCount === 2) {
+        boardPlayer = compareItemsSelect(localStorage.getItem('index1'), localStorage.getItem('index2'));
+        localStorage.setItem('selectCount', 0);
+        return boardPlayer;
+    }
+    return boardPlayer;
+};
+
+const showNotification = (icon, title) => {
+    const TOAST = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+      
+    TOAST.fire({
+        icon: icon,
+        title: title
+    });
+};
+
+const compareItemsSelect = (indice1, indice2) => {
+    let boardPlayer = JSON.parse(localStorage.getItem('board'));
+
+    if (boardPlayer[indice1].value === boardPlayer[indice2].value) {
+        boardPlayer[indice1].isDiscover = true;
+        boardPlayer[indice2].isDiscover = true;
+        localStorage.setItem('score', parseInt(localStorage.getItem('score')) + 1);
+        if (validateIsWin(boardPlayer.length / 2)) {
+            showNotification('success', `Felicitaciones!!! ${localStorage.getItem('namePlayer')} Completaste el juego`);
+        } else {
+            showNotification('success', 'Adivinaste!!! Felicidades :)')
+        }
+    } else {
+        boardPlayer[indice2].isDiscover = true;
+        const TRACK = document.getElementById('track');
+        TRACK.innerHTML = drawCard(boardPlayer[indice2], indice2, true);
+        showNotification('error', 'Opssss!!! Mala decision :(');
+        boardPlayer[indice1].isDiscover = false;
+        boardPlayer[indice2].isDiscover = false;
+    }
+    return boardPlayer;
+};
+
+const validateIsWin = (limitScore) => {
+    if (parseInt(localStorage.getItem('score')) === limitScore) {
+        return true;
+    }
+    return false;
 };
