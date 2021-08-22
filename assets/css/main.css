@@ -29,10 +29,6 @@ footer img {
     background-color: #FAF76B;
     color: black;
 }
-.button--secondary {
-    background-color: #87501F;
-    color: white;
-}
 button:hover {
-    color: white !important;
+    color: black !important;
 }
